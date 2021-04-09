@@ -26,16 +26,16 @@
 </h4>
         <pre>
             <code class="c++">
-                void selection_sort(int *arr, size_t n){
-		for(int curr = 0; curr < n - 1 ; ++curr){
-			int smallest = curr;
-			for(int i = curr+1 ; i < n ; ++i){
-				if(arr[i] < arr[smallest])
-					smallest = i;
-			}
-			swap(arr+curr, arr+smallest);
-		}
-	}
+void selection_sort(int *arr, size_t n){
+    for(int curr = 0; curr < n - 1 ; ++curr){
+        int smallest = curr;
+        for(int i = curr+1 ; i < n ; ++i){
+            if(arr[i] < arr[smallest])
+                smallest = i;
+        }
+        swap(arr+curr, arr+smallest);
+    }
+}
 
             </code>
         </pre>

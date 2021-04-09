@@ -26,40 +26,41 @@
 </h4>
         <pre>
             <code class="c++">
-                vector<int> spirallyTraverse(vector<vector<int> > matrix, int r, int c) 
-    {
-        int rowStart = 0;
-        int columnStart = 0;
-        int rowEnd = r-1;
-        int columnEnd = c-1;
+                
+vector<int> spirallyTraverse(vector<vector<int> > matrix, int r, int c) 
+{
+    int rowStart = 0;
+    int columnStart = 0;
+    int rowEnd = r-1;
+    int columnEnd = c-1;
+    
+    vector<int> res;
+    
+    while(rowStart <= rowEnd && columnStart <= columnEnd){
         
-        vector<int> res;
+        for(int i = columnStart; i <= columnEnd; i++){
+            res.push_back(matrix[rowStart][i]);
+        } rowStart++;
         
-        while(rowStart <= rowEnd && columnStart <= columnEnd){
-            
-            for(int i = columnStart; i <= columnEnd; i++){
-                res.push_back(matrix[rowStart][i]);
-            } rowStart++;
-            
-            for(int i = rowStart; i <= rowEnd; i++){
-                res.push_back(matrix[i][columnEnd]);
-            } columnEnd--;
-            
-            if (rowStart <= rowEnd){
-                for(int i = columnEnd; i >= columnStart; i--){
-                    res.push_back(matrix[rowEnd][i]);
-                } rowEnd--;    
-            }
-            
-            if (columnStart <= columnEnd){
-                for(int i = rowEnd; i >= rowStart; i--){
-                    res.push_back(matrix[i][columnStart]);
-                } columnStart++;
-            }
+        for(int i = rowStart; i <= rowEnd; i++){
+            res.push_back(matrix[i][columnEnd]);
+        } columnEnd--;
+        
+        if (rowStart <= rowEnd){
+            for(int i = columnEnd; i >= columnStart; i--){
+                res.push_back(matrix[rowEnd][i]);
+            } rowEnd--;    
         }
         
-        return res;
+        if (columnStart <= columnEnd){
+            for(int i = rowEnd; i >= rowStart; i--){
+                res.push_back(matrix[i][columnStart]);
+            } columnStart++;
+        }
     }
+    
+    return res;
+}
 
             </code>
         </pre>

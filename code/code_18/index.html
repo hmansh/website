@@ -26,32 +26,33 @@
 </h4>
         <pre>
             <code class="c++">
-                    bool searchSmall(vector<vector<int>>& matrix, int target, int i, int j, int n, int m){
-        if (i == n || j == m){
-            return false;
-        }
-        if (matrix[i][j] == target) return true;
-        if (matrix[n-1][j] < target || matrix[i][m-1] < target){
-            if (matrix[n-1][j] < target) j++;
-            if (matrix[i][m-1] < target) i++;
-            return searchSmall(matrix, target, i, j, n, m);
-        } else {
-            for(int a = i; a < n; a++){
-                for(int b = j; b < m; b++){
-                    if (matrix[a][b] == target) return true;
-                    if (matrix[a][b] > target) return false;
-                }
+                
+bool searchSmall(vector<vector<int>>& matrix, int target, int i, int j, int n, int m){
+    if (i == n || j == m){
+        return false;
+    }
+    if (matrix[i][j] == target) return true;
+    if (matrix[n-1][j] < target || matrix[i][m-1] < target){
+        if (matrix[n-1][j] < target) j++;
+        if (matrix[i][m-1] < target) i++;
+        return searchSmall(matrix, target, i, j, n, m);
+    } else {
+        for(int a = i; a < n; a++){
+            for(int b = j; b < m; b++){
+                if (matrix[a][b] == target) return true;
+                if (matrix[a][b] > target) return false;
             }
         }
-        return false;            
     }
-    
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
-        if (matrix.size()==0) return false;
-        return searchSmall(matrix, target, 0, 0, matrix.size(), matrix[0].size());
-    }
-        return res;
-    }
+    return false;            
+}
+
+bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    if (matrix.size()==0) return false;
+    return searchSmall(matrix, target, 0, 0, matrix.size(), matrix[0].size());
+}
+    return res;
+}
 
             </code>
         </pre>

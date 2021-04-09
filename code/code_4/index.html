@@ -28,20 +28,20 @@
             <code class="c++">
                 
 void sort012(int a[], int n)
-    {
-        int lower = 0;
-        for(int i = 0; i < n; i++){
-            if (a[i] == 0){
-                swap(a[lower++], a[i]);
-            }
-        }
-        int higher = n-1;
-        for(int i = n-1; i >= 0; i--){
-            if (a[i] == 2){
-                swap(a[higher--], a[i]);
-            }
+{
+    int lower = 0;
+    for(int i = 0; i < n; i++){
+        if (a[i] == 0){
+            swap(a[lower++], a[i]);
         }
     }
+    int higher = n-1;
+    for(int i = n-1; i >= 0; i--){
+        if (a[i] == 2){
+            swap(a[higher--], a[i]);
+        }
+    }
+}
 
             </code>
         </pre>
