@@ -1,0 +1,85 @@
+colgroup {
+  color: #86bef7;
+  color: #0466C8;
+  color: #0353A4;
+  color: #023E7D;
+  color: #002855;
+  color: #001845;
+  color: #001233;
+  color: #33415C;
+  color: #5C677D;
+  color: #7D8597;
+  color: #979DAC;
+}
+
+body{
+  font-family: 'Source Code Pro', monospace;
+  padding: 10px;
+  background: #0466C8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+mark {
+  background-color:#86bef7;
+}
+
+.header {
+  padding: 5px;
+  font-size: 20px;
+  text-align: center;
+  background: white;
+}
+
+div {
+  box-shadow: 10px 10px;
+}
+
+a {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.fakeimg {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 20px;
+}
+  
+.card {
+  background-color: white;
+  padding: 30px;
+  margin-top: 20px;
+}
+
+.card a{
+  color: black;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: #001845;
+  margin-top: 20px;
+}
+
+@media screen and (max-width: 450px) {
+  .leftcolumn, .rightcolumn {   
+    width: 100%;
+    padding: 0;
+  }
+}
+
+@media (min-width: 450px) {
+  img{
+    width: 500px;
+    height: auto;
+  }
+}

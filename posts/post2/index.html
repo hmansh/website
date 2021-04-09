@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsupervised Translation of Programming Language</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <h2>Unsupervised Translation of Programming Language</h2>
+    </div>
+
+    <div class="row">
+        <div class="leftcolumn">
+            <div class="card">
+                <h5>Himanshu, Nov 11 2020</h5>
+                <h4>The paper is based on the idea that we can convert one Programming language to another programming language, ways of achieving this, and further applications of this technique.</h4>
+                    
+                <sub>Marie-Anne Lachaux, Baptiste Roziere, Lowik Chanussot, Guillaume Lample</sub>
+                <h2>INTRODUCTION</h2>
+                <p>The applications that are already available in the industry are more focused on the <mark>rule-based
+                    approach.</mark> Converting the code to an <mark>abstract syntax tree </mark>then convert that tree to a chosen language
+                    which has shown some promising result but only when the difference between the programming languages
+                    <mark> is less</mark>, also many programming languages cannot be converted into one another because of the lack of
+                    higher-level features, etc.</p>
+                <h2>What is a Transcoder?</h2>
+                <p><mark>IT’S ALL ABOUT PROGRAMMING LANGUAGES!</mark><br>
+                    The conversion of an Programming Language (Usually Deprecated) into a new programming language
+                    (Usually new and highly used) is called transcoding the language and the tool used is called a
+                    TRANSCODER!</p>
+                <h2>What is An Abstract Syntax Tree?</h2>
+                <p>In computer science, an abstract syntax tree (AST), or just syntax tree, is a tree representation of
+                    the abstract syntactic structure of source code written in a programming language.<mark> Each node of the
+                    tree denotes a construct occurring in the source code.</mark></p>
+                <img src="resources/01.png">
+                <h2>Why do we need a new approach?</h2>
+                <p>Current methods are <mark>Slow, Highly Expensive, Hard to find expertise in </mark>old languages.
+                    <li>Australia Recently Spent Millions of Dollars to convert its financial and government code bases
+                    written in old languages to new one.</li>
+                    <li>Web Servers of US Govt. failed as huge traffic emerged during the Covid Pandemic because
+                    unemployment filing websites were running on COBOL.</li>
+                    <li>Very less developer community support for these languages.</li>
+                </p>
+                <h2>And Why Are We Using Deep Learning for This?</h2>
+                <p><mark>Natural Language Models </mark>have already shown how superior they are when compared to rule-based models
+                    because of their <mark>deeper complex understanding of language </mark> in hand. So using them for this purpose
+                    might be really efficient.</p>
+                <h2>What about the Data? Because Deep Learning Models are Data Hungry right?</h2>
+                <p>Yes! Data! We need that and a lot of it.
+                    Supervised learning methods cannot be used because of the lack of enough parallel training data to
+                    train the model on.
+                    So, Researchers moved to <mark>unsupervised methods</mark>. Huge GitHub’s corpus of repositories of Python, C++,
+                    and Java were used to develop this model.
+                </p>
+                <h2>Encoder and Decoder</h2>
+                <p>
+                    <li>ENCODER Takes in low Level feature sets and keeps decreasing the dimensions and condensing the
+                        information into a lower dimensional form with high level features.</li>
+                        <br>
+                    <li>DECODER Takes in the low dimension forms adds in the corresponding layers from the encoder and
+                        increases the dimensionality of the data while keeping the high level features.</li>
+                </p>
+                <img src="resources/02.png">
+                <h2>The Model</h2>
+                <p>Using this method they used a huge corpus of C++ code and Python code not explicitly related to each
+                    other. Feed the data into and encoder model. The encoder learns to convert the code into something
+                    useful <mark>(abstract* to a form which makes sense about the actual logical working of the code)</mark> learning
+                    happens provided there is Cost Function in place.
+                    Then the model decodes this abstract form to output in a auto regressive way aka. token by token.
+                    Which in this case is logically correct in the desired language.</p>
+                <h3>BUT if there is only one decoder for all languages then how do we know which language to produce?
+                </h3>
+                <p>Precede the first token of output with a token for the desired language.</p>
+                <h2>Embeddings in Vector Space</h2>
+                <h3>What is that Abstract thing after all?</h3>
+                <p>In the embedding space, similar things are <mark> mapped close to each other </mark>and have very less cosine
+                    distance between them.
+                    Performs even better when we have overlap between the two languages.
+                    Eg. if represents the same thing in both languages so it will be overlapping with each other in the
+                    embedding space.
+                    <mark>Tokens are also similar when their statistical relationships with things that are same is same.</mark>
+                </p>
+                <img src="resources/03.png">
+                <h2>Cross-Lingual Masked Language Model Pretraining</h2>
+                <p>This trains the Encoder only. Pretraining the model comes from the BERT paper. Which emphasis on the
+                    fact that pretraining a model will help the Encoder understand the structure of the code. Which
+                    turns out to be very beneficial as it now knows what structures coding languages follow. It
+                    understands what will come to the left and the right a token in a programming language depending on
+                    the context.</p>
+                <h2>Denoising Auto Encoding</h2>
+                <p>Now we have to train the decoder previously we only trained the encoder.
+                    This time we not only masks few tokens but also corrupt the code. The encoder predict the masked
+                    tokens and the decoder fixes the corrupted code.
+                    We also give a token to specify which language we want to predict the output in which is usually the
+                    same language as the input at this step.
+                </p>
+                <h2>Back Translation</h2>
+                <p>We haven’t trained the model in any supervised way yet because we don’t have parallel data. But now
+                    we do have an almost trained model. So we use the model to make more training data. How do we do
+                    that?
+                    We take Python convert it to C++ using the model. Then convert that C++ code back to Python (Back
+                    translation) using the model. So now we do have a metric to compare with. This will tell us how well
+                    the model is performing.</p>
+                <h2>Preprocessing</h2>
+                <p><mark>Tokenizers ensure that meaningless modifications in the code do not impact tokenized sequence</mark> . Java
+                    Lang tokenizer for Java, the tokenizer of the Standard library for Python and the Clang tokenizer
+                    for C++</p>
+                <img src="resources/04.png" alt="">
+                <h2>Training Details</h2>
+                <p><mark> Single encoder and a single decoder </mark>for all programming languages.
+                    Alternate between batches of C++, Java, and Python
+                    TransCoder optimized with the Adam optimizer.
+                    Models implemented in PyTorch</p>
+                <h2>Training Data</h2>
+                <p>GitHub repositories is used.
+                <mark>Function level translation </mark>for a simpler evaluation of the model with unit tests
+                    Comments in the source code were kept in final datasets and experiments.</p>
+                <h2>Evaluation</h2>
+                <p>From GeeksforGeeks , set of parallel functions which return the same output, but also compute the
+                    result with similar algorithm C++, Java, and Python are extracted, to create our validation and test
+                    sets.
+                    To evaluate translation we use BLEU score.
+                    Limitations of above is that they do not take into account the syntactic correctness.</p>
+                <p>That evaluates whether the hypothesis function generates the same outputs as the reference when given
+                    the same inputs
+                    Two sets of results for our computational accuracy metric:</p>
+                <p> <li> <mark> Beam N percentage </mark> of functions with at least one correct translation in the beam. </li> </p>
+                <p> <li> <mark> Beam N - Top 1 percentage </mark> of functions where the hypothesis in the beam with the highest
+                    log-probability is a correct translation. </li> </p>
+                <img src="resources/05.png" alt="">
+                <h2>Improvements</h2>
+                <p> <li>To make the results even more accurate we can use<mark>  syntax checking on the outputs</mark> so that the error
+                    due to wrong syntax is being dealt with. </li>
+                    <li> We <mark> can also try different architecture </mark> in an experimental model or try model which has worked for
+                    Natural Language Processing. </li>
+                    <li> The dataset can also be modified so to have better results. Semi Supervised Learning. </li>
+                    <li> Improvement in <mark> translation of inbuilt functions.</mark>Will help the results by a large margin. </li>
+                </p>
+                <h2>Conclusion</h2>
+                <p>This paper shows that the approach of unsupervised machine translation can be applied to source code
+                    to create a transcompiler in a fully unsupervised way. Transcoder can easily be generalized to any
+                    programming language, <mark> does not require any expert knowledge , outperforms commercial solutions by
+                    large margins.</mark>
+                    Automatic TransCoders has the potential to make programmers working in companies or on open source
+                    projects <mark> more efficient. Decrease the cost of updating older codebase </mark> written in obsolete languages.
+                    Further help in future innovation.</p>
+                <img src="resources/06.png" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="https://arxiv.org/pdf/2006.03511.pdf">Download Paper</a>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Primes from 300BC</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <h2>Infinite Primes from 300BC</h2>
+    </div>
+
+    <div class="row">
+        <div class="leftcolumn">
+            <div class="card">
+                <h5>Himanshu, Nov 11 2020</h5>
+                <h3>One of the most classical proofs in Mathematics "There are INF Primes" proved by a method Mathematicians love Proof by Contradiction. So, let's just start with it without wasting no time.</h3>
+                <h3>STEP 1</h3>
+                <p>Let's assume that there are finite primes [n]. So the list of Primes will look like [2, 3, 5, 7, 11, 13 ... Pn], where Pn is the Nth Prime.</p>
+                <h3>STEP 2</h3>
+                <p>NOTE We know that all numbers are made up of prime numbers, and if a number is not made up primes then itself a Prime.</p>
+                <p>55 = 5 x 11<br><br>1024 = 2 x 2 x 2 x 2 x 2 x 2 x 2 x 2 x 2 x 2<br><br>89 = 89 x 1</p>
+                <h3>STEP 3</h3>
+                <p>Coming back to our list of finite primes, now what if we multiply all these numbers together ?<br><br>2 x 3 x 5 x 7 x 11 x ... x Pn = Q<br><br>So Q will be divisible by every number from the list of finite primes. --- [I]<br><br>Also, Q > largest([2, 3, 5, 7, 11, 13 ... Pn])<br></p>
+                <h3>STEP 4</h3>
+                <p>Now, Add 1 to Q<br>Q' = Q + 1</p>
+                <h3>STEP 5</h3>
+                <p>Now, you know from STEP 3 [I]. That Q' will always leave a remainder of 1. When divided by any number from the list of finite prime.<br><br>Concluding that Q' is a prime greater than the greatest prime Pn.<br>Making our initial assumtion false. Hence Voila there are infinte primes!</p>
+                <h5>Largest Prime 2^82,589,933 − 1<br>Go ahead try finding a new one.</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <a href="#">feedback maybe?</a>
+    </div>
+
+</body>
+
+</html>

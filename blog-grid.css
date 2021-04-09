@@ -1,0 +1,156 @@
+colgroup {
+  color: #D62828;
+  color: #003049;
+}
+
+body {
+  background-color: #D62828;
+  font-family: 'Poppins', helvetica;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  overflow-x: hidden;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #003049;
+}
+
+.header {
+  background-color: #ffffff;
+  width: 93%;
+  max-width: 700px;
+  padding: 10px;
+  padding-right: 20px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 10px 10px;
+  margin-bottom: 20px;
+  margin-bottom: 40px;
+}
+
+.hello {
+  background-color: #ffffff;
+  width: 93%;
+  max-width: 700px;
+  padding: 10px;
+  padding-right: 20px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 10px 10px;
+  /* margin-bottom: 20px; */
+  margin-bottom: 40px;
+}
+
+.hello p, h2, ul, i {
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.year-progress {
+  /* border : 1px solid red; */
+  margin: auto;
+  text-align: center;
+}
+
+.links {
+  margin-bottom: 10px;
+}
+
+.links i {
+  margin-right: 50px;
+  text-decoration: none;
+  list-style: none;
+  color:#00509D;
+  font-size: 30px;
+  justify-content: space-around;
+}
+
+.blog-grid {
+  background-color: #ffffff;
+  width: 93%;
+  max-width: 700px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 10px 10px;
+  margin-bottom: 40px;
+}
+
+.blog-grid p, h2, ul {
+  padding-left: 10px;
+}
+
+
+.heading {
+  padding-top: 10px ;
+  padding-left: 10px;
+}
+
+
+.topic li {
+  list-style: none;
+  padding: 5px;
+}
+
+.topic ul {
+  padding-left: 5px;
+}
+
+.topic p {
+  display: inline;
+}
+
+#mail img{
+  padding-left: 10px;
+  margin-bottom: 20px;
+  width: 30vh;
+  height: 5vh;
+}
+
+#info {
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+#info a {
+  color: black;
+  text-decoration: none;
+}
+
+iframe {
+  margin-bottom: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+#mrk mark{
+  background-color: yellow;
+  color: black;
+}
+
+#yp {
+	margin-bottom: 1vh;
+}
+
+#ygraph {
+	height: 2vh;
+	max-width: 700px;
+	border: 1px solid #003049;
+	overflow: hidden;
+}
+
+#ybar {
+	height: 3vh;
+	width: 0vw;
+	background: #003049;
+	transition: width 0.5s;
+}
