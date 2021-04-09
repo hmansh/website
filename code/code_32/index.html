@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Queue
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-09 19:35:27.154548</h5>
+        <h4>Queue ADT Implementation
+</h4>
+        <pre>
+            <code class="c++">
+                class Queue
+{
+private:
+    int n;
+    int TOP = -1;
+    int END = -1;
+    int *array;
+    int LIMIT;
+
+public:
+    Queue(int n)
+    {
+        if (n <= 0)
+        {
+            throw std::invalid_argument("INVALID SIZE\n");
+        }
+        array = new int[n];
+        LIMIT = n;
+    }
+
+    void ENQUEUE(int x)
+    {
+        if (TOP == 0 || END == LIMIT - 1)
+        {
+            throw std::invalid_argument("OVERFLOW");
+        }
+        this->array[END++] = x;
+    }
+
+    void DEQUEUE()
+    {
+        if (TOP == -1 && END == -1)
+        {
+            throw std::invalid_argument("UNDERFLOW");
+        }
+        this->array[TOP++] = 0;
+        for (int i = TOP; i <= END; i++)
+        {
+            array[TOP - 1] = array[TOP];
+        }
+        END--;
+        TOP--;
+    }
+
+    void PRINT()
+    {
+        for (int i = TOP; i < END; i++)
+        {
+            std::cout << array[i] << std::endl;
+        }
+    }
+};
+
+int main(int argc, char const *argv[])
+{
+    Queue queue(4);
+    queue.ENQUEUE(6);
+    queue.ENQUEUE(3);
+    queue.ENQUEUE(4);
+    queue.ENQUEUE(7);
+    queue.PRINT();
+    std::cout << "\n";
+    queue.DEQUEUE();
+    queue.PRINT();
+    queue.ENQUEUE(3);
+    queue.ENQUEUE(4);
+    return 0;
+}
+
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>
