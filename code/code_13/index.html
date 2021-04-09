@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factorials of large numbers 
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Factorials of large numbers 
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-09 19:06:15.050186</h5>
+        <h4>Given an integer N, find its factorial.
+</h4>
+        <pre>
+            <code class="c++">
+                
+def factorial(self, N):
+        dp = [];
+        dp.extend([1, 1]);
+        for i in range (2 , N + 1):
+            dp.append(i * dp[i-1]);
+        return str(dp[N]);
+
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>

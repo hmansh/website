@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Inversions
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Count Inversions
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-09 19:03:23.950747</h5>
+        <h4>Given an array of integers. Find the Inversion Count in the array. Inversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted. If array is already sorted then the inversion count is 0. If an array is sorted in the reverse order then the inversion count is the maximum.  Formally, two elements a[i] and a[j] form an inversion if a[i] > a[j] and i < j.
+</h4>
+        <pre>
+            <code class="c++">
+                
+long long merge(long long arr[], long long l, long long m, long long r){
+    
+        long long n1 = m - l + 1;
+        long long n2 = r - m;
+        
+        long long A[n1], B[n2];
+        
+        for(long long i = 0 ; i < n1; i++){
+            A[i] = arr[l + i];
+        }
+        
+        for(long long i = 0; i < n2; i++){
+            B[i] = arr[m + 1 + i];
+        }
+        
+        
+        long long i = 0;
+        long long j = 0;
+        long long k = l;
+        long long inversion = 0;
+        
+        while( i < n1 && j < n2){
+            
+            if (A[i] <= B[j]){
+                arr[k++] = A[i++];
+            } else {
+                arr[k++] = B[j++];
+                inversion += n1 - i;
+            }
+            
+        }
+        
+        while (i < n1){
+            arr[k++] = A[i++];
+        }
+        
+        while ( j < n2) {
+            arr[k++] = B[j++];
+        }
+        
+        return inversion;
+    }
+    
+    long long int mergeSort(long long arr[], long long l, long long r){
+        
+        long long int inversion = 0;
+        
+        if (l < r){
+            
+            long long mid = l + (r - l) / 2;
+            inversion += mergeSort(arr, l, mid);
+            inversion += mergeSort(arr, mid+1, r);
+            inversion += merge(arr, l, mid, r);
+            
+        }
+        
+        return inversion;
+    }
+    
+    long long int inversionCount(long long arr[], long long N)
+    {
+        mergeSort(arr, 0, N-1);
+    }
+
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>

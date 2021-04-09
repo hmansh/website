@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search a 2D Matrix
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Search a 2D Matrix
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-09 19:09:27.736781</h5>
+        <h4>Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties: Integers in each row are sorted from left to right. The first integer of each row is greater than the last integer of the previous row.
+</h4>
+        <pre>
+            <code class="c++">
+                    bool searchSmall(vector<vector<int>>& matrix, int target, int i, int j, int n, int m){
+        if (i == n || j == m){
+            return false;
+        }
+        if (matrix[i][j] == target) return true;
+        if (matrix[n-1][j] < target || matrix[i][m-1] < target){
+            if (matrix[n-1][j] < target) j++;
+            if (matrix[i][m-1] < target) i++;
+            return searchSmall(matrix, target, i, j, n, m);
+        } else {
+            for(int a = i; a < n; a++){
+                for(int b = j; b < m; b++){
+                    if (matrix[a][b] == target) return true;
+                    if (matrix[a][b] > target) return false;
+                }
+            }
+        }
+        return false;            
+    }
+    
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if (matrix.size()==0) return false;
+        return searchSmall(matrix, target, 0, 0, matrix.size(), matrix[0].size());
+    }
+        return res;
+    }
+
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>

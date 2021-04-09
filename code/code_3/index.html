@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kth smallest element 
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Kth smallest element 
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-09 18:57:28.892226</h5>
+        <h4>Given an array arr[] and a number K where K is smaller than size of array, the task is to find the Kth smallest element in the given array. It is given that all array elements are distinct.
+</h4>
+        <pre>
+            <code class="c++">
+                
+void swap(int* a, int* b){
+        int temp = *a;
+        *a = *b;
+        *b = temp;
+    }
+    
+    int partition(int arr[], int l, int r)
+    {
+        int x = arr[r], i = l;
+        for (int j = l; j <= r - 1; j++) {
+            if (arr[j] <= x) {
+                swap(&arr[i], &arr[j]);
+                i++;
+            }
+        }
+        swap(&arr[i], &arr[r]);
+        return i;
+    }
+    
+    int kthSmallest(int arr[], int l, int r, int k) {
+        if (k > 0 && k <= r - l + 1) {
+            int pos = partition(arr, l, r);
+            if (pos - l == k - 1) return arr[pos];
+            if (pos - l > k - 1) return kthSmallest(arr, l, pos - 1, k);
+            return kthSmallest(arr, pos + 1, r, k - pos + l - 1);
+        }
+            return INT_MAX;
+    }
+
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>
