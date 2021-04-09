@@ -1,0 +1,15 @@
+!!!heading!!!
+Not Searching a number 
+
+!!!question!!!
+Given an array Arr of N elements and a integer K. Your task is to return the position of first occurence of K in the given array. Note: Position of first element is considered as 1.
+
+!!!code!!!
+
+int search(int arr[], int n, int x){
+    int i;
+    for (i = 0; i < n; i++)
+        if (arr[i] == x)
+            return i;
+    return -1;
+}
