@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Search Tree
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Binary Search Tree
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-09 19:17:36.245584</h5>
+        <h4>Implementation of BST ADT with all the major utility functions
+</h4>
+        <pre>
+            <code class="c++">
+                #include <bits/stdc++.h>
+using namespace std;
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+class binarySearchTree
+{
+
+private:
+    struct node *root;
+
+    struct node *newnode(int data)
+    {
+        struct node *temp = new struct node;
+        temp->data = data;
+        temp->left = NULL;
+        temp->right = NULL;
+        return temp;
+    }
+
+    struct node *_insert_node_(struct node *root, int data)
+    {
+        if (root == NULL)
+        {
+            root = newnode(data);
+            return root;
+        }
+        if (data < root->data)
+            root->left = _insert_node_(root->left, data);
+        else
+            root->right = _insert_node_(root->right, data);
+        return root;
+    }
+
+    struct node *_delete_node_(struct node *root, int data)
+    {
+        if (root == NULL)
+            return root;
+
+        if (data < root->data)
+            root->left = _delete_node_(root->left, data);
+
+        else if (data > root->data)
+            root->right = _delete_node_(root->right, data);
+
+        else
+        {
+
+            if (root->left == NULL)
+            {
+                struct node *temp = root->right;
+                delete (root);
+                return temp;
+            }
+
+            else if (root->right == NULL)
+            {
+                struct node *temp = root->left;
+                delete (root);
+                return temp;
+            }
+
+            int temp = _minimum_(root->right);
+            root->data = temp;
+            root->right = _delete_node_(root->right, temp);
+        }
+        return root;
+    }
+
+    void _inorder_rec_(struct node *root)
+    {
+        if (root == NULL)
+            return;
+        _inorder_rec_(root->left);
+        cout << root->data << " ";
+        _inorder_rec_(root->right);
+    }
+
+    void _preorder_rec_(struct node *root)
+    {
+        if (root == NULL)
+            return;
+        cout << root->data << " ";
+        _preorder_rec_(root->left);
+        _preorder_rec_(root->right);
+    }
+
+    void _postorder_rec_(struct node *root)
+    {
+        if (root == NULL)
+            return;
+        _postorder_rec_(root->left);
+        _postorder_rec_(root->right);
+        cout << root->data << " ";
+    }
+
+    int _maximum_(struct node *root)
+    {
+        if (root->right == NULL)
+            return root->data;
+        return _maximum_(root->right);
+    }
+
+    int _minimum_(struct node *root)
+    {
+        if (root->left == NULL)
+            return root->data;
+        return _minimum_(root->left);
+    }
+
+    bool _is_left_skewed_(struct node *root)
+    {
+        if (root->left == NULL)
+            return true;
+        if (root->right != NULL)
+            return false;
+        return _is_left_skewed_(root->left);
+    }
+
+    bool _is_right_skewed_(struct node *root)
+    {
+        if (root->right == NULL)
+            return true;
+        if (root->left != NULL)
+            return false;
+        return _is_right_skewed_(root->right);
+    }
+
+    bool _is_skewed_(struct node *root)
+    {
+        bool left = _is_left_skewed_(root);
+        bool right = _is_right_skewed_(root);
+        if (left + right == 0)
+            return false;
+        return true;
+    }
+
+    int _size_(struct node *root)
+    {
+        if (root == NULL)
+            return 0;
+        return _size_(root->left) + _size_(root->right) + 1;
+    }
+
+    int _height_(struct node *root)
+    {
+        if (root == NULL)
+            return 0;
+        return max(_height_(root->left) + 1, _height_(root->right) + 1);
+    }
+
+    int _diameter_(struct node *root)
+    {
+        if (root == NULL)
+            return 0;
+
+        int lh = _height_(root->left);
+        int rh = _height_(root->right);
+
+        int ld = _diameter_(root->left);
+        int rd = _diameter_(root->right);
+
+        return max(lh + rh + 1, max(ld, rd));
+    }
+
+    bool _search_(struct node *root, int key)
+    {
+        if (root == NULL)
+            return false;
+        if (root->data == key)
+            return true;
+        else if (root->data > key)
+            return _search_(root->left, key);
+        else if (root->data < key)
+            return _search_(root->right, key);
+        return false;
+    }
+
+    bool _is_balanced_(struct node *root)
+    {
+        if (root == NULL)
+            return true;
+        int lh = _height_(root->left);
+        int rh = _height_(root->right);
+
+        int ld = _is_balanced_(root->left);
+        int rd = _is_balanced_(root->right);
+
+        if (abs(lh - rh) >= 2)
+            return false;
+        return ld && rd;
+    }
+
+    int _sum_of_leaves_(struct node *root)
+    {
+        if (root == NULL)
+            return 0;
+        if (root->left == NULL && root->right == NULL)
+            return root->data;
+        return _sum_of_leaves_(root->left) + _sum_of_leaves_(root->right);
+    }
+
+    int _sum_of_non_leaves_(struct node *root)
+    {
+        if (root == NULL)
+            return 0;
+        if (root->left != NULL || root->right != NULL)
+            return root->data + _sum_of_non_leaves_(root->left) + _sum_of_non_leaves_(root->right);
+        return 0;
+    }
+
+    void _spiral_traversal_rec_(struct node *root, int level, int flag)
+    {
+        if (root == NULL)
+            return;
+        if (level == 0)
+            cout << root->data << " ";
+        else
+        {
+            if (flag)
+            {
+                _spiral_traversal_rec_(root->right, level - 1, flag ^ 1);
+                _spiral_traversal_rec_(root->left, level - 1, flag ^ 1);
+            }
+            else
+            {
+                _spiral_traversal_rec_(root->left, level - 1, flag ^ 1);
+                _spiral_traversal_rec_(root->right, level - 1, flag ^ 1);
+            }
+        }
+    }
+
+    void _spiral_traversal_iter(struct node *root)
+    {
+        if (root == NULL)
+            return;
+        stack<node *> stack1;
+        stack<node *> stack2;
+        stack1.push(root);
+        while (!stack1.empty() || !stack2.empty())
+        {
+            while (!stack1.empty())
+            {
+                node *temp = stack1.top();
+                stack1.pop();
+                cout << temp->data << " ";
+                if (temp->right != NULL)
+                    stack2.push(temp->right);
+                if (temp->left != NULL)
+                    stack2.push(temp->left);
+            }
+            while (!stack2.empty())
+            {
+                node *temp = stack2.top();
+                stack1.pop();
+                cout << temp->data << " ";
+                if (temp->left != NULL)
+                    stack1.push(temp->left);
+                if (temp->right != NULL)
+                    stack1.push(temp->right);
+            }
+        }
+    }
+
+    void _level_order_traversal_rec(struct node *root, int level)
+    {
+        if (root == NULL)
+            return;
+        if (level == 0)
+            cout << root->data << " ";
+        else
+        {
+            _level_order_traversal_rec(root->left, level - 1);
+            _level_order_traversal_rec(root->right, level - 1);
+        }
+    }
+
+    void _level_order_traversal_iter(struct node *root)
+    {
+        if (root == NULL)
+            return;
+        stack<node *> stk;
+        stk.push(root);
+        while (!stk.empty())
+        {
+            node *temp = stk.top();
+            stk.pop();
+            cout << temp->data << " ";
+            if (temp->left != NULL)
+                stk.push(temp->left);
+            if (temp->right != NULL)
+                stk.push(temp->right);
+        }
+    }
+
+    void _inorder_iter_(struct node *root)
+    {
+        if (root == NULL)
+            return;
+        stack<node *> stk;
+        node *curr = root;
+        while (!stk.empty() || curr != NULL)
+        {
+            while (curr != NULL)
+            {
+                stk.push(curr);
+                curr = curr->left;
+            }
+            curr = stk.top();
+            stk.pop();
+            cout << curr->data << " ";
+            curr = curr->right;
+        }
+    }
+
+    void _preorder_iter_(struct node *root)
+    {
+        if (root == NULL)
+            return;
+        stack<node *> stk;
+        node *curr = root;
+        while (!stk.empty() || curr != NULL)
+        {
+            while (curr != NULL)
+            {
+                stk.push(curr);
+                cout << curr->data << " ";
+                curr = curr->left;
+            }
+            curr = stk.top();
+            stk.pop();
+            curr = curr->right;
+        }
+    }
+
+    void _postorder_iter_(struct node *root)
+    {
+        if (root == NULL)
+            return;
+        stack<node *> stk1;
+        stack<node *> stk2;
+        stk1.push(root);
+        while (!stk1.empty())
+        {
+            node *curr = stk1.top();
+            stk1.pop();
+            if (curr->left != NULL)
+                stk1.push(curr->left);
+            if (curr->right != NULL)
+                stk1.push(curr->right);
+            stk2.push(curr);
+        }
+        while (!stk2.empty())
+        {
+            node *curr = stk2.top();
+            stk2.pop();
+            cout << curr->data << " ";
+        }
+    }
+
+    bool _check_if_binary_search_tree_(struct node *root)
+    {
+        if (root == NULL)
+            return true;
+        if (root->left != NULL)
+            if (root->left->data > root->data)
+                return false;
+        if (root->right != NULL)
+            if (root->right->data < root->data)
+                return false;
+        return _check_if_binary_search_tree_(root->right) && _check_if_binary_search_tree_(root->right);
+    }
+
+    void _top_view_(struct node *root)
+    {
+    }
+
+public:
+    binarySearchTree()
+    {
+        root = NULL;
+    }
+
+    void insertNode(int data);
+    void inorderRec();
+    void preorderRec();
+    void postorderRec();
+    int maximum();
+    int minimum();
+    bool isSkewed();
+    int size();
+    int height();
+    int diameter();
+    bool search(int key);
+    void deleteNode(int data);
+    bool isBalanced();
+    int sumOfLeaves();
+    int sumOfNonLeaves();
+    void spiralTraversalRec();
+    void spiralTraversalIter();
+    void levelOrderRec();
+    void levelOrderIter();
+    void inorderIter();
+    void preorderIter();
+    void postorderIter();
+    bool checkIfBST();
+
+    void topView();
+};
+
+void binarySearchTree::insertNode(int data)
+{
+    root = _insert_node_(root, data);
+}
+
+void binarySearchTree::deleteNode(int data)
+{
+    root = _delete_node_(root, data);
+}
+
+void binarySearchTree::inorderRec()
+{
+    _inorder_rec_(root);
+}
+
+void binarySearchTree::preorderRec()
+{
+    _preorder_rec_(root);
+}
+
+void binarySearchTree::postorderRec()
+{
+    _postorder_rec_(root);
+}
+
+int binarySearchTree::maximum()
+{
+    return _maximum_(root);
+}
+
+int binarySearchTree::minimum()
+{
+    return _minimum_(root);
+}
+
+bool binarySearchTree::isSkewed()
+{
+    return _is_skewed_(root);
+}
+
+int binarySearchTree::size()
+{
+    return _size_(root);
+}
+
+int binarySearchTree::height()
+{
+    return _height_(root);
+}
+
+int binarySearchTree::diameter()
+{
+    return _diameter_(root);
+}
+
+bool binarySearchTree::search(int key)
+{
+    return _search_(root, key);
+}
+
+bool binarySearchTree::isBalanced()
+{
+    return _is_balanced_(root);
+}
+
+int binarySearchTree::sumOfLeaves()
+{
+    return _sum_of_leaves_(root);
+}
+
+int binarySearchTree::sumOfNonLeaves()
+{
+    return _sum_of_non_leaves_(root);
+}
+
+void binarySearchTree::spiralTraversalRec()
+{
+    int h = _height_(root);
+    int flag = 0;
+    for (int i = 0; i < h; i++)
+        _spiral_traversal_rec_(root, i, flag), flag ^= 1, cout << endl;
+}
+
+void binarySearchTree::spiralTraversalIter()
+{
+    _spiral_traversal_iter(root);
+}
+
+void binarySearchTree::levelOrderIter()
+{
+    _level_order_traversal_iter(root);
+}
+
+void binarySearchTree::levelOrderRec()
+{
+    int h = height();
+    for (int i = 0; i < h; i++)
+        _level_order_traversal_rec(root, h);
+}
+
+void binarySearchTree::inorderIter()
+{
+    _inorder_iter_(root);
+}
+
+void binarySearchTree::preorderIter()
+{
+    _preorder_iter_(root);
+}
+
+void binarySearchTree::postorderIter()
+{
+    _postorder_iter_(root);
+}
+
+bool binarySearchTree::checkIfBST()
+{
+    return _check_if_binary_search_tree_(root);
+}
+
+void binarySearchTree::topView()
+{
+    _top_view_(root);
+}
+
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>

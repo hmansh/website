@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Tree
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Binary Tree
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-09 19:18:16.970050</h5>
+        <h4>Implementation of Binary Tree ADT with all the major utility functions
+</h4>
+        <pre>
+            <code class="c++">
+                #include<bits/stdc++.h>
+using namespace std;
+
+struct node{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+
+class Tree{
+
+private:
+
+    struct node* root;
+    
+    struct node* newnode(int data){
+        struct node* temp = new struct node;
+        temp->data = data;
+        temp->left = NULL;
+        temp->right = NULL;
+        return temp;
+    }
+
+    struct node* _insert(struct node* root, int data){
+        if (root == NULL){
+            root = newnode(data);
+            return root;
+        }
+
+        queue<node*> qu;
+        qu.push(root);
+
+        while(!qu.empty()){
+            struct node* temp = qu.front();
+            qu.pop();
+            if (temp->left != NULL){
+                qu.push(temp->left);
+            }
+            else{ 
+                temp->left = newnode(data);
+                return root;
+            }
+
+            if (temp->right != NULL){
+                qu.push(temp->right);
+            }
+            else {
+                temp->right = newnode(data);
+                return root;
+            }    
+        }
+        return root;
+    }
+
+    void _internal_inorder(struct node* root){
+        if (root == NULL)
+            return;
+        _internal_inorder(root->left);
+        cout << root->data << " ";
+        _internal_inorder(root->right);
+    }
+
+    void _internal_preorder(struct node* root){
+        if (root == NULL)
+            return;
+        _internal_preorder(root->right);
+        _internal_preorder(root->left);
+        cout << root->data << " ";
+    }
+
+    void _internal_postorder(struct node* root){
+        if (root == NULL)
+            return;
+        _internal_postorder(root->left);
+        _internal_postorder(root->right);
+        cout << root->data << " ";
+    }
+
+    void _internal_level_order_iterative(struct node* root){
+        if (root == NULL) return;
+
+        queue<struct node*> q;
+        q.push(root);
+
+        while(!q.empty()){
+            struct node* temp = q.front();
+            q.pop();
+            cout << temp->data << " ";
+            if (temp->left != NULL){
+                q.push(temp->left);
+            }
+            if (temp->right != NULL){
+                q.push(temp->right);
+            }
+        }
+    }
+
+    void _internal_level_order_recursive(struct node* root, int level){
+        if (root == NULL)
+            return;
+        if (level == 0 )
+            cout << root->data << " ";
+        else{
+            _internal_level_order_recursive(root->left, level-1);
+            _internal_level_order_recursive(root->right, level-1);
+        }
+    }
+
+    int _height(struct node* root){
+        if (root == NULL)
+            return 0;
+        return max(_height(root->left) + 1, _height(root->right) + 1);
+    }
+
+    void _spiral_tree_traversal_rec(struct node* root, int level, bool flag){
+        if (root == NULL) return;
+        if (level == 0) cout << root->data << " ";
+        else{
+            if (flag){
+                _spiral_tree_traversal_rec(root->left, level-1, flag);
+                _spiral_tree_traversal_rec(root->right, level-1, flag);
+            } else {
+                _spiral_tree_traversal_rec(root->right, level-1, flag);
+                _spiral_tree_traversal_rec(root->left, level-1, flag);
+            }
+
+        }
+    }  
+
+    void _spiral_tree_traversal_iter(struct node* root){
+        
+        if (root == NULL)
+            return;
+
+        stack<struct node*> stack1;
+        stack<struct node*> stack2;
+        stack1.push(root);
+        while(!stack1.empty() || !stack2.empty()){
+
+            while(!stack1.empty()){
+                struct node* temp = stack1.top();
+                stack1.pop();
+                cout << temp->data <<  " ";
+                if (temp->left != NULL){
+                    stack2.push(temp->left);
+                }
+                if (temp->right != NULL){
+                    stack2.push(temp->right);
+                }
+            }
+
+            while(!stack2.empty()){
+                struct node* temp = stack2.top();
+                stack2.pop();
+                cout << temp->data << " ";
+                if (temp->right != NULL){
+                    stack1.push(temp->right);
+                }
+                if (temp->left != NULL){
+                    stack1.push(temp->left);
+                }   
+            }
+        }
+        return;
+    }
+
+    int _size_of_tree(struct node* root){
+        if (root == NULL)
+            return 0;
+        return _size_of_tree(root->left) + _size_of_tree(root->right) + 1;
+    }
+
+    int _max_val(struct node* root){
+        if (root == NULL)
+            return 0;
+        int lm = _max_val(root->left);
+        int rm = _max_val(root->right);
+        int m = max(lm, rm);
+        return max(m, root->data);
+    }
+    
+    void _left_view(struct node* root){
+        if (root == NULL)
+            return;
+        
+    }
+
+public:
+
+    Tree(){
+        root = NULL;
+    }
+
+    bool isEmpty(); //ok
+    void insertNode(int data);//ok
+    void traversal(int type); //ok
+    void levelOrderIter(); //ok
+    void levelOrderRec(); //ok
+    void treeSpiralRec(); //ok
+    void treeSpiralIter(); //ok
+    int size(); //ok
+    int height(); //ok
+    int maxVal(); //ok
+    void nodeAtK(); 
+    void leftView();
+    bool isBalanced();
+    int maxWidth();
+    int countNodes();
+    int countLeaves();
+};
+
+void Tree::insertNode(int data){
+    root = _insert(root, data);
+}
+
+void Tree::traversal(int type){
+        if (type == 0)
+            _internal_inorder(root);
+        else if (type == 1)
+            _internal_preorder(root);
+        else
+            _internal_postorder(root);
+}
+
+bool Tree::isEmpty(){
+    return root==NULL;
+}
+
+void Tree::levelOrderIter(){
+    _internal_level_order_iterative(root);
+}
+
+int Tree::height(){
+    return _height(root);
+}
+
+void Tree::levelOrderRec(){
+    int h = _height(root);
+    for(int i = 0; i < h; i++){
+        _internal_level_order_recursive(root, i);
+    }
+    return;
+}
+
+void Tree::treeSpiralRec(){
+    int h = _height(root);
+    for(int i = 0; i < h; i++){
+        _spiral_tree_traversal_rec(root, i, (i+1)%2);
+    }
+}
+
+void Tree::treeSpiralIter(){
+    _spiral_tree_traversal_iter(root);
+    cout << endl;
+}
+
+int Tree::size(){
+    return _size_of_tree(root);
+}
+
+int Tree::maxVal(){
+    return _max_val(root);
+}
+
+void Tree::leftView(){
+
+}
+
+
+
+
+
+
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>
