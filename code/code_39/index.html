@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check whether BST contains Dead End 
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Check whether BST contains Dead End 
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-10 07:57:32.188496</h5>
+        <h4>Given a Binary search Tree that contains positive integer values greater then 0. The task is to complete the function isDeadEnd which returns true if the BST contains a dead end else returns false. Here Dead End means, we are not able to insert any element after that node.
+</h4>
+        <pre>
+            <code class="c++">
+                
+bool findDeadEnd(Node* root, int min, int max){
+    if (root == NULL) return false;
+    if (max-min <= 2) return true;
+    return findDeadEnd(root->left, min, root->data) || findDeadEnd(root->right, root->data, max);
+}
+
+bool isDeadEnd(Node *root)
+{
+    return findDeadEnd(root, 0, INT_MAX);
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>
