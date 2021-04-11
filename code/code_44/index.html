@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search in Rotated Sorted Array
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Search in Rotated Sorted Array
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-11 09:01:28.605724</h5>
+        <h4>There is an integer array nums sorted in ascending order (with distinct values). Prior to being passed to your function, nums is rotated at an unknown pivot index k (0 <= k < nums.length) such that the resulting array is [nums[k], nums[k+1], ..., nums[n-1], nums[0], nums[1], ..., nums[k-1]] (0-indexed). For example, [0,1,2,4,5,6,7] might be rotated at pivot index 3 and become [4,5,6,7,0,1,2]. Given the array nums after the rotation and an integer target, return the index of target if it is in nums, or -1 if it is not in nums.
+</h4>
+        <pre>
+            <code class="c++">
+                
+int search(vector<int>& nums, int target) {
+    int low = 0;
+    int high = nums.size()-1;
+    while(low <= high){
+        int mid = low + (high - low)/2;
+        if (nums[mid] == target) return mid;
+        if (nums[low] <= nums[mid]){
+            if (target >= nums[low] and target < nums[mid])
+                high = mid-1;
+            else 
+                low = mid+1;
+        } else {
+            if (target <= nums[high] and target > nums[mid])
+                low = mid+1;
+            else
+                high = mid-1;
+        }
+    }
+    return -1;
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>
