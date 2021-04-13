@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Majority Element 
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Majority Element 
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-12 20:22:18.442867</h5>
+        <h4>Given an array A of N elements. Find the majority element in the array. A majority element in an array A of size N is an element that appears more than N/2 times in the array.
+</h4>
+        <pre>
+            <code class="c++">
+                
+int majorityElement(int a[], int size){
+    int count = 1;
+    int majority = a[0];
+    for(int i = 1; i < size; i++){
+        if (majority == a[i]) count++;
+        else count--;
+        if (count == 0){
+            majority = a[i];
+            count = 1;
+        }
+    }
+    count = 0;
+    for(int i = 0; i < size; i++){
+        if (a[i] == majority) count++;
+    }
+    return count > size/2 ? majority : -1;
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>

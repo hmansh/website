@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merge 2 Sorted Arrays
+</title>
+    <link rel="stylesheet" href="../../template/code-style.css">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet"> -->
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" href="../../highlight/styles/stackoverflow-light.css">
+    <script src="../../highlight/highlight.pack.js"></script>
+    <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+    <div class="header">
+        <h2>Merge 2 Sorted Arrays
+</h2>
+    </div>
+
+    <div class="card">
+        <h5>2021-04-12 21:41:44.724176</h5>
+        <h4>Given two sorted arrays arr1[] of size N and arr2[] of size M. Each array is sorted in non-decreasing order. Merge the two arrays into one sorted array in non-decreasing order without using any extra space.
+</h4>
+        <pre>
+            <code class="c++">
+                
+void merge(int arr1[], int arr2[], int n, int m) {
+    int i = 0, j = 0, k = n - 1;
+    while (i <= k and j < m) {
+        if (arr1[i] < arr2[j])
+            i++;
+        else {
+            swap(arr2[j++], arr1[k--]);
+        }
+    }
+    sort(arr1, arr1 + n);
+    sort(arr2, arr2 + m);
+}
+            </code>
+        </pre>
+    </div>
+
+    <div class="footer">
+        <a href="#">Feedback</a>
+    </div>
+
+</body>
+
+</html>
